@@ -15,7 +15,8 @@
         <version>2.1.0.RELEASE</version>
     </parent>
     <modules>
-    <module>eureka-client</module>
+        <module>eureka-client</module>
+        <module>eureka-server</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
