@@ -6,7 +6,17 @@ server:
   port: 8762
 
 eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 10  #没有心跳的淘汰时间 10s    默认90s
+    lease-renewal-interval-in-seconds: 5  #心跳间隔 5秒   默认30s
+    #在eureka中显示ip地址
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
   client:
+    registerWithEureka: true
+    fetchRegistry: true
+    registry-fetch-interval-seconds: 5  #定时刷新本地缓存时间
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
