@@ -1,0 +1,71 @@
+server:
+  port: 8083
+spring:
+  profiles:
+    active: cookie_route
+#断言工厂  时间（after before  between）
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        -  id: after_route
+           uri: http://httpbin.org:80
+           predicates:
+             -  After=2021-01-01T17:42:47.789-07:00[America/Denver]
+  profiles: after_route
+#请求头匹配  header键和值（不匹配就404）
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        -  id: header_route
+           uri: http://httpbin.org:80
+           predicates:
+             -  Header=X-Request-Id,  \d+
+  profiles: header_route
+#请求头带有Cookie   name=forezp
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        -  id: cookie_route
+           uri: http://httpbin.org:80
+           predicates:
+             -  Cookie=name,  forezp
+  profiles: cookie_route
+#  请求方法断言
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        -  id: method_route
+           uri: http://httpbin.org:80
+           predicates:
+             -  Method=GET
+  profiles: method_route
+#  路径断言  可以是具体路径也可意识spel表达式
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        -  id: path_route
+           uri: http://httpbin.org:80
+           predicates:
+             -  Path=/forezp/article/{segment}
+  profiles: path_route
+#  请求参数 包含foo 且值为bar  如果只有foo表示参数有foo的都正确路由
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        -  id: query_route
+           uri: http://httpbin.org:80
+           predicates:
+             -  Query=foo ,bar
+  profiles: query_route
