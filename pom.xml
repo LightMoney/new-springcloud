@@ -18,6 +18,9 @@
         <module>eureka-client</module>
         <module>eureka-server</module>
         <module>gateway</module>
+        <module>consul-consumer</module>
+        <module>consul-provider</module>
+        <module>consul-config</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

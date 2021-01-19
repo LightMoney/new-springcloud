@@ -1,0 +1,19 @@
+
+server:
+  port: 8763
+spring:
+  application:
+    name: consul-provider
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+          register: true #是否需要注册(m默认true)
+          instance-id: ${spring.application.name}-1 #实例id(唯一标志)
+          service-name: ${spring.application.name} #服务的名称
+          prefer-ip-address: true #开启ip地址注册
+          ip-address: ${spring.cloud.client.ip-address} #当前服务的请求ip(不写也可以)
+          port: ${server.port} #服务的请求端口（不写有默认）
+
+#最简单配置见consul-consumer

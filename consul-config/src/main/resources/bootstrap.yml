@@ -1,0 +1,24 @@
+#从config配置中心获取
+#server:
+#  port: 8763
+spring:
+  application:
+    name: consul-config
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+          register: true #是否需要注册(m默认true)
+          instance-id: ${spring.application.name}-1 #实例id(唯一标志)
+          service-name: ${spring.application.name} #服务的名称
+          prefer-ip-address: true #开启ip地址注册
+          ip-address: ${spring.cloud.client.ip-address} #当前服务的请求ip(不写也可以)
+          port: ${server.port} #服务的请求端口（不写有默认）
+      config:
+        enabled: true  #设置config是否启用
+        format: yaml   #设置配置值的格式
+        prefix: config  #设置配置的目录
+        profile-separator:  ':'     #配置分隔符  默认为，
+        data-key:  data     #为应用配置的key名字，值为整个应用配置的字符串
+#最简单配置见consul-consumer
