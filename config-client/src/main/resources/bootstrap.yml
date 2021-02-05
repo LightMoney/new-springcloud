@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      uri: http://localhost:8769
+      fail-fast: true
+  profiles:
+    active: dev
+
+#读取失败则执行快速失败  执行dev文件
+#读取成功  读取的文件为：config-client-dev.yml

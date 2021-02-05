@@ -1,0 +1,36 @@
+#本地读取配置
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+    active: native
+  application:
+    name: config-server
+
+server:
+  port: 8769
+
+#  从git上读取配置
+#    spring:
+#      cloud:
+#        config:
+#          server:
+#            git:
+#              uri: https://github.com/forezp/SpringcloudConfig
+#              searchPaths: respo
+#              username:
+#              password:
+#          label: master
+    #配置说明：
+    #1. spring.cloud.config.server.git.url配置git仓库地址
+    #2. spring.cloud.config.server.git.searchPaths配置搜索远程仓库的文件夹地址
+    #3. spring.cloud.config.server.git.username配置git仓库的登录名
+    #4. spring.cloud.config.server.git.password配置git仓库的密码 (公开的Git仓库不需要用户名、密码；私人Git仓库需要)
+    #5. spring.cloud.config.label为git仓库的分支名，本例从master读取。
+
+#    4. 将resource/shared目录中的config-client-dev.yml文件上传到https://github.com/forezp/SpringcloudConfig/respo目录。
+#    5. 重新启动config-server。
+

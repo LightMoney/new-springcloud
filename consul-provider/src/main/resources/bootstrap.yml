@@ -10,10 +10,13 @@ spring:
       port: 8500
       discovery:
           register: true #是否需要注册(m默认true)
-          instance-id: ${spring.application.name}-1 #实例id(唯一标志)
+          instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} #实例id(唯一标志)   默认application name+ port
           service-name: ${spring.application.name} #服务的名称
           prefer-ip-address: true #开启ip地址注册
           ip-address: ${spring.cloud.client.ip-address} #当前服务的请求ip(不写也可以)
           port: ${server.port} #服务的请求端口（不写有默认）
 
 #最简单配置见consul-consumer
+#默认instance-id 是服务名加端口号
+#集群部署就可能会重复   解决办法  配置唯一instance-id （只能以字母开头以数字或字母结尾）
+#也可以通过继承ConsulServiceRegistry类，自定义consul注册默认的实例名
