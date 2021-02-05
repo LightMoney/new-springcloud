@@ -13,7 +13,19 @@ spring:
 server:
   port: 8769
 
-#  从git上读取配置
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 10  #没有心跳的淘汰时间 10s    默认90s   与注册中心一直
+    lease-renewal-interval-in-seconds: 5  #心跳间隔 5秒   默认30s
+    #在eureka中显示ip地址
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+
+  #  从git上读取配置
 #    spring:
 #      cloud:
 #        config:
@@ -34,3 +46,22 @@ server:
 #    4. 将resource/shared目录中的config-client-dev.yml文件上传到https://github.com/forezp/SpringcloudConfig/respo目录。
 #    5. 重新启动config-server。
 
+#=========从数据库读取配置
+#spring:
+#  profiles:
+#    active: jdbc
+#  application:
+#    name: config-jdbc-server
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/config-jdbc?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&serverTimezone=GMT%2B8
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.jdbc.Driver
+#  cloud:
+#    config:
+#      label: master
+#      server:
+#        jdbc: true
+#server:
+#  port: 8769
+#spring.cloud.config.server.jdbc.sql: SELECT key1, value1 from config_properties where APPLICATION=? and PROFILE=? and LABEL=?

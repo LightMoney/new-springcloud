@@ -3,10 +3,22 @@ spring:
     name: config-client
   cloud:
     config:
-      uri: http://localhost:8769
+      #      uri: http://localhost:8769  #这种是单机直连  将服务放到注册中心上可通过服务id来连接
       fail-fast: true
+      discovery:
+        service-id: config-server
+        enabled: true
   profiles:
     active: dev
-
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 10  #没有心跳的淘汰时间 10s    默认90s
+    lease-renewal-interval-in-seconds: 5  #心跳间隔 5秒   默认30s
+    #在eureka中显示ip地址
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
 #读取失败则执行快速失败  执行dev文件
 #读取成功  读取的文件为：config-client-dev.yml
