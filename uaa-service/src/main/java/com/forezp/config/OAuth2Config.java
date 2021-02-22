@@ -34,6 +34,12 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
      */
 //    @Autowired
 //    private DataSource dataSource;
+
+    /**
+     * 客户端信息配置
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //也可采用数据库读取
@@ -48,11 +54,21 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .accessTokenValiditySeconds(3600);
     }
 
+    /**
+     * 配置授权token的节点和token服务
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer()).authenticationManager(authenticationManager);
     }
 
+    /**
+     * 配置token节点的安全策略
+     * @param oauthServer
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
