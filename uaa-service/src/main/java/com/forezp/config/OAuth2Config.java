@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import javax.sql.DataSource;
 import java.security.KeyPair;
 
 /**
@@ -27,9 +28,17 @@ import java.security.KeyPair;
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
+
+    /**
+     * sql数据源
+     */
+//    @Autowired
+//    private DataSource dataSource;
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //也可采用数据库读取
+//        clients.jdbc(dataSource);
+//        clients.jdbc(this.dataSource).clients(this.clientDetails());
         clients.inMemory()
                 .withClient("user-service")
                 .secret("123456")
