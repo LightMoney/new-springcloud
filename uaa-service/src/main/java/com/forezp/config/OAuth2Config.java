@@ -34,7 +34,10 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
      */
 //    @Autowired
 //    private DataSource dataSource;
-
+//    @Bean
+//    public ClientDetailsService clientDetails() {
+//        return new JdbcClientDetailsService(dataSource);
+//    }
     /**
      * 客户端信息配置
      * @param clients

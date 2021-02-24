@@ -25,6 +25,8 @@
         <module>config-server</module>
         <module>uaa-service</module>
         <module>user-service</module>
+        <module>admin-client</module>
+        <module>admin-server</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
