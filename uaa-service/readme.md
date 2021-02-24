@@ -16,3 +16,6 @@ keytool -list -rfc  --keystore fzp-jwt.jks  |  openssl  x509 -inform pem -pubkey
 					</nonFilteredFileExtensions>
 				</configuration>
 			</plugin>
+			
+			
+			资源服务器和认证服务器同时存在时认证服务器不生效
