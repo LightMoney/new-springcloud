@@ -1,20 +1,20 @@
 package com.forezp.config;
 
 
+import com.forezp.filter.JwtAuthenticationTokenFilter;
+import com.forezp.handler.AuthenctiationStatusHandler;
 import com.forezp.service.UserServiceDetail;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Created by fangzhipeng on 2017/5/27.
@@ -22,29 +22,43 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
+//@Order(-1)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Autowired
+    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Autowired
+    private AuthenctiationStatusHandler authenctiationStatusHandler;
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-            .and()
-                .formLogin()
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/**").authenticated()
+//                .exceptionHandling()
+//                .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+//            .and()
+                .formLogin().loginPage("/index.html").loginProcessingUrl("/login")
+                .successHandler(authenctiationStatusHandler)
+                .failureHandler(authenctiationStatusHandler)
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessHandler(authenctiationStatusHandler)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/test/**").authenticated()
+                .anyRequest().permitAll()
 //                .antMatchers("/test/**").hasRole("USER")
 //                .antMatchers("/pass/**").permitAll()
             .and()
                 .httpBasic();
+//        token拦截 可以携带token免登陆（感觉可以不用）
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Autowired

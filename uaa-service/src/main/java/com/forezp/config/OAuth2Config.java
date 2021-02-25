@@ -28,7 +28,8 @@ import java.security.KeyPair;
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-
+    @Autowired
+    private CustomUserAuthenticationConverter customUserAuthenticationConverter;
     /**
      * sql数据源
      */
@@ -64,7 +65,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer()).authenticationManager(authenticationManager);
+        endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer(customUserAuthenticationConverter)).authenticationManager(authenticationManager);
     }
 
     /**
@@ -90,14 +91,17 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtTokenEnhancer());
+        return new JwtTokenStore(jwtTokenEnhancer(customUserAuthenticationConverter));
     }
 
     @Bean
-    protected JwtAccessTokenConverter jwtTokenEnhancer() {
+    protected JwtAccessTokenConverter jwtTokenEnhancer(CustomUserAuthenticationConverter customUserAuthenticationConverter) {
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("fzp-jwt.jks"), "fzp123".toCharArray());
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("fzp-jwt"));
+        //配置自定义的CustomUserAuthenticationConverter
+        DefaultAccessTokenConverter accessTokenConverter = (DefaultAccessTokenConverter) converter.getAccessTokenConverter();
+        accessTokenConverter.setUserTokenConverter(customUserAuthenticationConverter);
         return converter;
     }
 //下面这种可以自定义
