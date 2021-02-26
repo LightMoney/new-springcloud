@@ -39,3 +39,9 @@ keytool -list -rfc  --keystore fzp-jwt.jks  |  openssl  x509 -inform pem -pubkey
 antMatcher("/pass/**") 
                 .authorizeRequests()
                 .anyRequest().authenticated()
+                
+一般可将认证鉴权放到网关成拦截  作为边界服务   只让认证生效吧  同时还未找到方法
+请求优先由@EnableAuthorizationServer、@EnableResourceServer 处理，剩下的无法匹配的由SpringSecurity处理。
+              （/oauth/token）  
+              
+conm.forezp.local中是拦截token放入线程副本              

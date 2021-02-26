@@ -32,9 +32,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
     private AuthenctiationStatusHandler authenctiationStatusHandler;
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/pass/**")
+        http//.antMatcher("/pass/**")
                 .authorizeRequests()
                 .anyRequest().authenticated().and()
+                .requestMatchers().antMatchers("/pass/**","/test/**").and()
                 .csrf().disable()
                 .formLogin().loginPage("/index.html").loginProcessingUrl("/login")
                 .successHandler(authenctiationStatusHandler)
