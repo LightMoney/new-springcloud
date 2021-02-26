@@ -28,6 +28,8 @@
         <module>admin-client</module>
         <module>admin-server</module>
         <module>eureka-zuul-client</module>
+        <module>sleuth-client-one</module>
+        <module>sleuth-client-two</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
