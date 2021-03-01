@@ -30,6 +30,9 @@
         <module>eureka-zuul-client</module>
         <module>sleuth-client-one</module>
         <module>sleuth-client-two</module>
+        <module>dashboard-feign</module>
+        <module>dashboard-ribbon</module>
+        <module>turbine-client</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

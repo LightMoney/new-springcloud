@@ -24,3 +24,6 @@ consul-consumer和consul-provider 为consul作为注册中心时服务消费和�
 gateway为网关配置demo
 
 sleuth-client-one 和sleuth-client-two 为sleuth 和zipkin 链路追踪
+   
+dashboard-feign  dashboard-ribbon    为hystrix熔断监控 面板     turbine-client 服务为聚合dashboard 的服务
+
