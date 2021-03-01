@@ -50,6 +50,8 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
 		</dependency>
+
+
 	</dependencies>
 
 

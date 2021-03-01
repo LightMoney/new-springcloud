@@ -60,6 +60,7 @@
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
 		</dependency>
 
+
 	</dependencies>
 
 	<build>
