@@ -33,6 +33,9 @@
         <module>dashboard-feign</module>
         <module>dashboard-ribbon</module>
         <module>turbine-client</module>
+        <module>seata-account-service</module>
+        <module>seata-order-service</module>
+        <module>seata-storage-service</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,0 +1,37 @@
+server:
+  port: 8181
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: fsp_tx_group
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: root
+    url: jdbc:mysql://localhost:3306/seata-storage?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&serverTimezone=GMT%2B8
+    username: root
+logging:
+  level:
+    io:
+      seata: info
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 10  #没有心跳的淘汰时间 10s    默认90s
+    lease-renewal-interval-in-seconds: 5  #心跳间隔 5秒   默认30s
+    #在eureka中显示ip地址
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    registry-fetch-interval-seconds: 5  #定时刷新本地缓存时间
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
