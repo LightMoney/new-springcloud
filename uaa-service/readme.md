@@ -1,3 +1,8 @@
+colin    123456
+登录    Authorization basic     要带求请头必须带着提供clientId:clientSecret的base64 
+资源服务 与认证服务同时存在时 设置认证服务器的优先级高就可以
+
+
 生成jks文件(可参看网上)
 keytool -genkeypair  -alias fzp-jwt  -validity 3650  -keyalg  RSA -dname  "CN=jwt,OU=jtw,O=jtw,L=zurich,S=zurich,C=CH"  -keypass  fzp123  -keystore fzp-jwt.jks -storepass fzp123
 

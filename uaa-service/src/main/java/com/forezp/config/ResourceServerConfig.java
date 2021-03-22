@@ -35,13 +35,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
         http//.antMatcher("/pass/**")
                 .authorizeRequests()
                 .anyRequest().authenticated().and()
-                .requestMatchers().antMatchers("/pass/**","/test/**").and()
-                .csrf().disable()
-                .formLogin().loginPage("/index.html").loginProcessingUrl("/login")
-                .successHandler(authenctiationStatusHandler)
-                .failureHandler(authenctiationStatusHandler)
-                .and()
-                .logout().logoutUrl("/logout").logoutSuccessHandler(authenctiationStatusHandler);
+//                .requestMatchers().antMatchers("/pass/**","/test/**").and()
+                .csrf().disable();
+//                .formLogin().loginPage("/index.html").loginProcessingUrl("/login")
+//                .successHandler(authenctiationStatusHandler)
+//                .failureHandler(authenctiationStatusHandler)
+//                .and()
+//                .logout().logoutUrl("/logout").logoutSuccessHandler(authenctiationStatusHandler);
 //                .and()
 //                .authorizeRequests()
 //                .antMatchers("/user/login","/user/register","/login").permitAll()

@@ -11,6 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-//@Order(-1)
+@Order(2)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -49,8 +50,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenctiationStatusHandler)
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessHandler(authenctiationStatusHandler)
-//                .and()
-//                .authorizeRequests()
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
 //                .antMatchers("/test/**").authenticated()
 //                .anyRequest().permitAll()
 //                .antMatchers("/test/**").hasRole("USER")
@@ -71,4 +72,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .passwordEncoder(new BCryptPasswordEncoder())
 //                .withUser("jack").password(new BCryptPasswordEncoder().encode("123456")).roles("USER");
     }
+//@Override
+//    public void configure(WebSecurity web) throws Exception {
+//    web.ignoring().antMatchers("oauth/**");
+//    }
 }
