@@ -1,3 +1,7 @@
+这个这里改造成了mybatis版本
+
+
+
 colin    123456
 登录    Authorization basic     要带求请头必须带着提供clientId:clientSecret的base64 
 资源服务 与认证服务同时存在时 设置认证服务器的优先级高就可以

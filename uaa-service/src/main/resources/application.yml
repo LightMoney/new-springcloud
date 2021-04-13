@@ -7,11 +7,15 @@ spring:
     url: jdbc:mysql://localhost:3306/spring-cloud-auth?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&serverTimezone=GMT%2B8
     username: root
     password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+#jpa配置
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+
+
 server:
   port: 9999
 
@@ -19,3 +23,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+  #mybatis 配置
+mybatis:
+  type-aliases-package: com.forezp.entity
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
