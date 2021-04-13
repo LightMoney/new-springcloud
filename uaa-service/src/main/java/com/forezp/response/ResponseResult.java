@@ -29,7 +29,7 @@ public class ResponseResult {
     public ResponseResult(boolean success, String message) {
         this.success = success;
         this.message = message;
-        this.code = 11111;
+        this.code = 500;
     }
 
     /**
@@ -41,7 +41,7 @@ public class ResponseResult {
     public ResponseResult(boolean success, Object data) {
         this.success = success;
         this.data = data;
-        this.code = 10000;
+        this.code = 200;
     }
 
     /**
